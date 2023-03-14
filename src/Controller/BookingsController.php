@@ -50,11 +50,11 @@ class BookingsController extends AppController
         if ($this->request->is('post')) {
             $booking = $this->Bookings->patchEntity($booking, $this->request->getData());
             if ($this->Bookings->save($booking)) {
-                $this->Flash->success(__('Rendez-vous confirmé 🙂 vous recevrez un message 24h avant votre rendez vous.'));
+                $this->Flash->success(__('Rendez-vous confirmé 🙂 Vous recevrez un message 24h avant votre rendez vous.'));
 
                 return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'accueil']);
             }
-            $this->Flash->error(__('The booking could not be saved. Please, try again.'));
+            $this->Flash->error(__("Il semble que la réservation que vous souhaitez n'est plus disponible"));
         }
         $this->set(compact('booking'));
     }
@@ -95,9 +95,9 @@ class BookingsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $booking = $this->Bookings->get($id);
         if ($this->Bookings->delete($booking)) {
-            $this->Flash->success(__('The booking has been deleted.'));
+            $this->Flash->success(__('Votre réservation a bien été annulée !'));
         } else {
-            $this->Flash->error(__('The booking could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Désolé il est trop tard pour annuler votre réservation sur notre site.'));
         }
 
         return $this->redirect(['action' => 'index']);
